@@ -20,13 +20,6 @@ namespace util {
 
 	const float M_PI = 3.14159265;
 
-	const float MAX_BOOST_SPEED = 2300;
-	const float SUPERSONIC_SPEED = 2200;
-	const float MAX_CRUISE_SPEED = 1410;
-	const float AVG_ACCEL = 800;
-	const float CAR_MASS = 180;
-
-
 	Vector3f convert(const rlbot::flat::Vector3& vec) {
 		return { vec.x(), vec.y(), vec.z() };
 	}
@@ -39,29 +32,6 @@ namespace util {
 	rlbot::flat::Vector3 convert(const Vector3f& vec) {
 		return rlbot::flat::Vector3{ vec[0], vec[1], vec[2] };
 	}
-
-	Path Path::derivative(unsigned int order) {
-		auto fct = points;
-		for (; order > 0 ; --order) {
-			fct = util::derivative(fct);
-		}
-		return Path(fct);
-	}
-
-	float Path::length() {
-		float len = 0;
-		for (float i = 0; i < util::NUM_POINTS; ++i) {
-			Vector3f next = points((i + 1.0f) / util::NUM_POINTS);
-			Vector3f now = points(i / util::NUM_POINTS);
-
-			len += (next - now).norm();
-		}
-
-		return len;
-	}
-
-	Path::Path(std::function<Vector3f(float)> points) :
-		points(points){}
 
 	Physics::Physics(const rlbot::flat::Physics& phys) :
 		location(convert(*phys.location())),
@@ -239,58 +209,20 @@ namespace util {
 	T clamp(T value, T min, T max) {
 		if (value < min) return min;
 		if (value > max) return max;
-		return value;	
+		return value;
 	}
 
-
-	std::function<Vector3f(float)> derivative(std::function<Vector3f(float)> &f) {
-		return [&f](float input) {
-			float epsilon = 1e-4;
-			return (f(input + epsilon) - f(input - epsilon) )/ (2 * epsilon);
-		};
-	}
-
-	float timeForCurve(float len, float v0) {
-
-		float t = 0;
-
-		float missingVel = MAX_CRUISE_SPEED - v0;
-		float tMaxVel = missingVel / AVG_ACCEL;
-
-		float distAcc = v0*tMaxVel + 0.5 * AVG_ACCEL * tMaxVel * tMaxVel;
-
-		//TODO This is wrong. pls fix in the future.
-		if (distAcc > len) return v0 * len;
-
-		float tExtra = (len - distAcc) * MAX_CRUISE_SPEED;
-
-		return tMaxVel + tExtra;
-
-	}
-
-	float groundDist(Vector3f a, Vector3f b) {
-		a.z() = 0;
-		b.z() = 0;
-		return (a - b).norm();
-	}
-
-
-
-	rlbot::Controller optimalGroundControl(const Car& car, const util::Path& path, float timeTillTarget) {
+	rlbot::Controller optimalGroundControl(const Car& car, const std::vector<Vector3f>& path) {
 
 		bool debug = 1;
 
 		rlbot::Controller controller{ 0 };
 
 		//take average of first 20% of the path (10)
-
 		Vector3f aim = { 0, 0, 0 };
-		for (float i = 0; i < 0.2; i += 0.02) {
-			aim += path.points(i);
-		}
-		aim /= 10;
-
-		aim = path.points(0.1);
+		int len = std::min((int)path.size(), util::NUM_POINTS/5);
+		for (auto i = 0; i < len; ++i) aim += path[i];
+		aim /= len;
 
 		//aim = path[path.size() / 2];
 
@@ -313,10 +245,8 @@ namespace util {
 
 		float steer = angle/M_PI;
 
-
 		steer *= 10;
 		steer = clamp<float>(steer, -1, 1);
-
 
 		//steer = steer > 0 ? 1 : -1;
 		//steer = clamp<float>(steer, -1, 1);
@@ -340,18 +270,12 @@ namespace util {
 
 		controller.throttle = clamp<float>(1.3 - std::abs(steer), 0, 1);
 
-		//stop if we have time left;
-		if (util::groundDist(path.points(0), path.points(1)) / car.physics.velocity.norm() < timeTillTarget && std::abs(controller.steer) < 0.9) controller.throttle = -1;
-
 		if (steer > 0.05) steer = 1;
 		if (steer < -0.05) steer = -1;
 
 		controller.steer = steer;
 
-		if (car.physics.location.z() > 400) controller.jump = true;
-
-
-		///*
+		
 
 		if (std::abs(steer) < 0.05 && car.hasWheelContact) controller.boost = 1;
 
@@ -362,20 +286,20 @@ namespace util {
 		Vector3f origin = { 0, 0, 92.75 };
 
 		// If ball is at center(kickoff)
-		if ((path.points(1) - origin).norm() < 5) {
+		if ((path[path.size() - 1] - origin).norm() < 5) {
 			controller.boost = 1;
 			controller.steer = controller.steer > 0 ? 1 : -1;
 		}//else if (car.physics.velocity.norm() < 5) controller.jump = 1;
 
 
 		//jump if car is close to ball
-		if ((path.points(1) - path.points(0)).norm() < 200 && car.hasWheelContact && path.points(1).z() < 200 && std::abs(controller.steer) < 0.1 ) {
+		if ((path[path.size() - 1] - path[0]).norm() < 200 && car.hasWheelContact && path[path.size() - 1].z() < 200 && std::abs(controller.steer) < 0.1 ) {
 			controller.jump = 1;
 		}
 
 		// If car is in the air
 		if (!car.hasWheelContact) {
-			if ((path.points(1) - path.points(0)).norm() < 200) {
+			if ((path[path.size() - 1] - path[0]).norm() < 200) {
 				controller.pitch = 1;
 				
 				controller.jump = 1;
@@ -388,7 +312,7 @@ namespace util {
 		}
 
 		//if target is in the air slow down
-		Vector3f target = path.points(1);
+		Vector3f target = path[path.size() - 1];
 		target.z() = 0;
 
 		Vector3f now = car.physics.location;
@@ -399,7 +323,6 @@ namespace util {
 		//if (path[path.size() - 1].z() > 300 && groundDist < 500 && std::abs(controller.steer) < 0.1) 
 			//controller.throttle = -1 * is_going_forward;
 
-		//*/
 
 		if (debug && car.team == 0) {
 			renderer.DrawString2D(	"boost: " + std::to_string(controller.boost) + "\n" +
@@ -409,8 +332,7 @@ namespace util {
 									"throttle: " + std::to_string(controller.throttle) + "\n" +
 									"pitch: " + std::to_string(controller.pitch) + "\n" +
 									"roll: " + std::to_string(controller.roll) + "\n" +
-									"yaw: " + std::to_string(controller.yaw) + "\n" + 
-									"timeTillTarget: " + std::to_string(timeTillTarget),
+									"yaw: " + std::to_string(controller.yaw) + "\n",
 									rlbot::Color::green,
 									rlbot::flat::Vector3{ 10, 200, 0 },
 									2, 2);

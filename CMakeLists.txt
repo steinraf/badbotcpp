@@ -5,7 +5,7 @@ project(BadBot++ LANGUAGES CXX)
 
 add_subdirectory(RLBotCPP)
 
-include_directories(/bot /brain /util)
+include_directories(/bot /brain /util /sequence)
 
 add_executable(BadBot++ main.cc badbot.cc badbot.h bot/state.cc bot/state.h brain/path.cpp brain/path.h util/util.cpp util/util.h sequence/sequence.cpp sequence/sequence.h)
 

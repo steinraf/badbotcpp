@@ -14,21 +14,7 @@ namespace util {
 
 	const int NUM_POINTS = 50;
 
-	class Path {
-	public:
-		std::function<Vector3f(float)> points;
-
-		Path derivative(unsigned int order = 1);
-
-		float length();
-
-		Path() = default;
-		~Path() = default;
-		Path(const Path& path) = default;
-		Path(std::function<Vector3f(float)> loc);
-
-
-	};
+	
 
 	class Rotation {
 	public:
@@ -194,21 +180,12 @@ namespace util {
 	template<typename T>
 	T clamp(T value, T min, T max);
 
-
-
-
-	std::function<Vector3f(float)> derivative(std::function<Vector3f(float)> &f);
-
 	Vector3f convert(const rlbot::flat::Vector3& vec);
 	Vector3f convert(const rlbot::flat::Rotator& vec);
 
-	float timeForCurve(float len, float v0);
-
-	float groundDist(Vector3f a, Vector3f b);
-
 	rlbot::flat::Vector3 convert(const Vector3f& vec);
 
-	rlbot::Controller optimalGroundControl(const Car& car, const util::Path& path, float timeTillTarget);
+	rlbot::Controller optimalGroundControl(const Car& car, const std::vector<Vector3f>& path);
 
 
 }//namespace util

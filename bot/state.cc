@@ -32,16 +32,6 @@ namespace badbot {
 		}
 		bool SimpleSteer::isValid() const { return true; }
 		rlbot::Controller SimpleSteer::getControls() const { 
-			rlbot::Controller bezierController = bezier_curve.getControl();
-
-			//if ball is in the air and takes less than 1 sec to get there
-			if (bezier_curve.target.z() > 400 && util::groundDist(bezier_curve.target, bezier_curve.car.physics.location) / bezier_curve.car.physics.velocity.norm() < 1) {
-				bezierController.throttle = 0;
-				bezierController.handbrake = 1;
-			}
-				
-			
-
 			return bezier_curve.getControl(); 
 		}
 

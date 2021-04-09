@@ -32,21 +32,20 @@ namespace badbot {
 
 	namespace paths {
 		class Bezier : public Path {
-		public:
+		private:
 			const Eigen::Vector3f target;
 			const util::Car car;
 			const util::BallPrediction& bp;
 
-			float timeTillTarget;
-
-			util::Path path;
+			std::vector<Eigen::Vector3f> path;
+			std::function<Eigen::Vector3f(float)> curve;
 			
-		//public:
+		public:
 			Bezier(const util::Car car, Eigen::Vector3f target, const util::BallPrediction& bp);
 			void getPath(std::vector<const rlbot::flat::Vector3*>& points) const override;
 			rlbot::Controller getControl() const override;
 			Eigen::Vector3f getTarget() const override{ return target; }
-			Eigen::Vector3f predict(double t) const override { return path.points(t); }
+			Eigen::Vector3f predict(double t) const override { return curve(t); }
 			std::string name() const override{ return "Bezier"; }
 		};
 
