@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\Rafael\Cpp\BadBot++\RLBotCPP\src\bot.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Rafael\Cpp\BadBot++\RLBotCPP\src\botmanager.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Rafael\Cpp\BadBot++\RLBotCPP\src\botprocess.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Rafael\Cpp\BadBot++\RLBotCPP\src\color.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Rafael\Cpp\BadBot++\RLBotCPP\src\interface.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Rafael\Cpp\BadBot++\RLBotCPP\src\matchsettings.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Rafael\Cpp\BadBot++\RLBotCPP\src\namedrenderer.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Rafael\Cpp\BadBot++\RLBotCPP\src\platform_linux.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Rafael\Cpp\BadBot++\RLBotCPP\src\platform_windows.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Rafael\Cpp\BadBot++\RLBotCPP\src\renderer.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Rafael\Cpp\BadBot++\RLBotCPP\src\scopedrenderer.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Rafael\Cpp\BadBot++\RLBotCPP\src\server.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Rafael\Cpp\BadBot++\RLBotCPP\src\sockets_linux.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Rafael\Cpp\BadBot++\RLBotCPP\src\sockets_windows.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Rafael\Cpp\BadBot++\RLBotCPP\src\statesetting.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\Rafael\Cpp\BadBot++\RLBotCPP\inc\rlbot\rlbot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Rafael\Cpp\BadBot++\RLBotCPP\inc\rlbot\rlbot_generated.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Rafael\Cpp\BadBot++\RLBotCPP\inc\rlbot\bot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Rafael\Cpp\BadBot++\RLBotCPP\inc\rlbot\botmanager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Rafael\Cpp\BadBot++\RLBotCPP\inc\rlbot\botprocess.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Rafael\Cpp\BadBot++\RLBotCPP\inc\rlbot\color.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Rafael\Cpp\BadBot++\RLBotCPP\inc\rlbot\controller.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Rafael\Cpp\BadBot++\RLBotCPP\inc\rlbot\errorcodes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Rafael\Cpp\BadBot++\RLBotCPP\inc\rlbot\flatbuffercontainer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Rafael\Cpp\BadBot++\RLBotCPP\inc\rlbot\interface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Rafael\Cpp\BadBot++\RLBotCPP\inc\rlbot\matchsettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Rafael\Cpp\BadBot++\RLBotCPP\inc\rlbot\namedrenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Rafael\Cpp\BadBot++\RLBotCPP\inc\rlbot\packets.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Rafael\Cpp\BadBot++\RLBotCPP\inc\rlbot\platform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Rafael\Cpp\BadBot++\RLBotCPP\inc\rlbot\renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Rafael\Cpp\BadBot++\RLBotCPP\inc\rlbot\scopedrenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Rafael\Cpp\BadBot++\RLBotCPP\inc\rlbot\server.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Rafael\Cpp\BadBot++\RLBotCPP\inc\rlbot\sockets.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Rafael\Cpp\BadBot++\RLBotCPP\inc\rlbot\statesetting.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Rafael\Cpp\BadBot++\RLBotCPP\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{D3F01F77-56D5-3CA8-BF03-7ED5217A19A0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{DCD6FF65-C10C-32BA-807E-7EBA843A15BA}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
